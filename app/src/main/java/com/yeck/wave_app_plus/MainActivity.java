@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mySurfaceView = (SurfaceView) findViewById(R.id.surfaceViewl);
+        mySurfaceView = findViewById(R.id.surfaceViewl);
         surfaceHolder = mySurfaceView.getHolder();
         surfaceHolder.addCallback(new SurfaceHolder.Callback() {
 
@@ -214,10 +214,10 @@ public class MainActivity extends Activity {
 //                } else {
                 mPts[i] = 1000;
                 mPts[i + 1] = 1000;
-                if (flag == true) {
+                if (flag) {
                     if (t < 25) {
                         mPts[i + 1] = (float) (1000 - t * 2.5);
-                    } else if (t >= 25 && t < 50) {
+                    } else if (t < 50) {
                         mPts[i + 1] = (float) (937.5 + t * 2.5 - 25 * 2.5);
                     } else if (t >= 100 && t < 120) {
                         mPts[i + 1] = 1000 + t * 2 - 200;
@@ -242,7 +242,8 @@ public class MainActivity extends Activity {
                     t++;
                 }
 
-                if (i % 500 == 0 && flag == false) {
+
+                if (i % 500 == 0 && !flag) {
                     flag = true;
                     t = 0;
                 }
@@ -263,9 +264,7 @@ public class MainActivity extends Activity {
                 }
 
                 if (mPts[i] < 0) {
-                    for (int k = 0; k <= i + 1; k++) {
-                        mPts[k] = mPts[k + 2];
-                    }
+                    if (i + 1 + 1 >= 0) System.arraycopy(mPts, 2, mPts, 0, i + 1 + 1);
                     i -= 2;
                 }
 //                if (length >= 1200){
