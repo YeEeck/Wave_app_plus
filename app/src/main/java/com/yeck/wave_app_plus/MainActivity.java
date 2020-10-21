@@ -10,7 +10,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class MainActivity extends Activity {
-    private SurfaceView mySurfaceView;
     private DrawingThread mDrawingThread;
     SurfaceHolder surfaceHolder;
 
@@ -21,7 +20,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mySurfaceView = findViewById(R.id.surfaceViewl);
+        SurfaceView mySurfaceView = findViewById(R.id.surfaceViewl);
         surfaceHolder = mySurfaceView.getHolder();
         surfaceHolder.addCallback(new SurfaceHolder.Callback() {
 
@@ -97,7 +96,7 @@ public class MainActivity extends Activity {
         float[] mPts = new float[100000];
         boolean flag = false;
         int t = 0;
-        
+
         // X is red, Y is blue
         final MovingPoint mColor = new MovingPoint();
 
