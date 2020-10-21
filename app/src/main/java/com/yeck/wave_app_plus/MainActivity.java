@@ -45,46 +45,10 @@ public class MainActivity extends Activity {
         });
     }
 
-    static final class MovingPoint {
-        float x, y, dx, dy;
-
-        void init(int width, int height, float minStep) {
-            x = (float) ((width - 1) * Math.random());
-            y = (float) ((height - 1) * Math.random());
-            dx = (float) (Math.random() * minStep * 2) + 1;
-            dy = (float) (Math.random() * minStep * 2) + 1;
-        }
-
-        float adjDelta(float cur, float minStep, float maxStep) {
-            cur += (Math.random() * minStep) - (minStep / 2);
-            if (cur < 0 && cur > -minStep) cur = -minStep;
-            if (cur >= 0 && cur < minStep) cur = minStep;
-            if (cur > maxStep) cur = maxStep;
-            if (cur < -maxStep) cur = -maxStep;
-            return cur;
-        }
-
-        void step(int width, int height, float minStep, float maxStep) {
-            x += dx;
-            if (x <= 0 || x >= (width - 1)) {
-                if (x <= 0) x = 0;
-                else if (x >= (width - 1)) x = width - 1;
-                dx = adjDelta(-dx, minStep, maxStep);
-            }
-            y += dy;
-            if (y <= 0 || y >= (height - 1)) {
-                if (y <= 0) y = 0;
-                else if (y >= (height - 1)) y = height - 1;
-                dy = adjDelta(-dy, minStep, maxStep);
-            }
-        }
-    }
 
     class DrawingThread extends Thread {
         // These are protected by the Thread's lock
         SurfaceHolder mSurface;
-        boolean mRunning;
-        boolean mActive;
         boolean mQuit;
         // Internal state
         int mLineWidth;
@@ -92,13 +56,10 @@ public class MainActivity extends Activity {
         float mMaxStep;
 
         //我的内容
-        float Funx1 = 500, Funy1 = 500, Funx2 = 500, Funy2 = 500;
         float[] mPts = new float[100000];
         boolean flag = false;
         int t = 0;
 
-        // X is red, Y is blue
-        final MovingPoint mColor = new MovingPoint();
 
         final Paint mBackground = new Paint();
         final Paint mForeground = new Paint();
