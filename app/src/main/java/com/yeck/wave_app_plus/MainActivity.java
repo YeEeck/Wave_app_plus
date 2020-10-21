@@ -97,30 +97,13 @@ public class MainActivity extends Activity {
         float[] mPts = new float[100000];
         boolean flag = false;
         int t = 0;
-
-        //
-
-        boolean mInitialized = false;
-        final MovingPoint mPoint1 = new MovingPoint();
-        final MovingPoint mPoint2 = new MovingPoint();
-
-        static final int NUM_OLD = 100;
-        int mNum0ld = 0;
-        final float[] m0ld = new float[NUM_OLD * 4];
-        final int[] m01dColor = new int[NUM_OLD];
-        int mBrightLine = 0;
-
+        
         // X is red, Y is blue
         final MovingPoint mColor = new MovingPoint();
 
         final Paint mBackground = new Paint();
         final Paint mForeground = new Paint();
 
-        int makeGreen(int index) {
-            int dist = Math.abs(mBrightLine - index);
-            if (dist > 10) return 0;
-            return (255 - (dist * (255 / 10))) << 8;
-        }
 
         @Override
         public void run() {
@@ -151,67 +134,7 @@ public class MainActivity extends Activity {
                     continue;
                 }
                 canvas.drawPoint(1000, 1000, mForeground);
-                // Update graphics
-//                if (!mInitialized) {
-//                    mInitialized = true;
-//                    mPoint1.init(canvas.getWidth(), canvas.getHeight(), mMinStep);
-//                    mPoint2.init(canvas.getWidth(), canvas.getHeight(), mMinStep);
-//                    mColor.init(127, 127, 1);
-//                } else {
-//                    mPoint1.step(canvas.getWidth(), canvas.getHeight(), mMinStep, mMaxStep);
-//                    mPoint2.step(canvas.getWidth(), canvas.getHeight(), mMinStep, mMaxStep);
-//                    mColor.step(127, 127, 1, 3);
-//                }
-//                mBrightLine += 2;
-//                if (mBrightLine > (NUM_OLD * 2)) {
-//                    mBrightLine = -2;
-//                }
 
-                // Clear background
-                //canvas.drawColor(mBackground.getColor());
-//                 Draw old lines
-//                for (int i = mNum0ld - 1; i >= 0; i--) {
-//                    mForeground.setColor(m01dColor[i] | makeGreen(i));
-//                    mForeground.setAlpha(((NUM_OLD - i) * 255) / NUM_OLD);
-//                    int p = i * 4;
-//                    canvas.drawLine(m0ld[p], m0ld[p + 1], m0ld[p + 2], m0ld[p + 3], mForeground);
-//                }
-                // Draw new line
-//                int red = (int) mColor.x + 128;
-//                if (red > 255) red = 255;
-//                int blue = (int) mColor.y + 128;
-//                if (blue > 255) blue = 255;
-//                int color = 0xff000000 | (red << 16) | blue;
-//                mForeground.setColor(color | makeGreen(-2));
-//                canvas.drawLine(mPoint1.x, mPoint1.y, mPoint2.x, mPoint2.y, mForeground);
-
-
-//                canvas.drawLine(0 , 1000, 500, 1000, mForeground);
-
-
-//                if (i > 100) {
-//                    double a = Math.toRadians(i);
-//                    mPts[i] = 1000;
-//                    mPts[i + 1] = (float) Math.sin(a);
-//                    if (i == 101 || i == 102) {
-//                        i += 2;
-//                        continue;
-//                    }
-////                    canvas.drawLines(mPts, mForeground);
-////                    mForeground.setColor(Color.BLACK);
-////                    canvas.drawLine(0, 0, mPts[i], mPts[i+1], mForeground);
-//                    for (int t = 0; t < i - 2; t += 2) {
-//                        canvas.drawLine(mPts[t], mPts[t + 1], mPts[t + 2], mPts[t + 3], mForeground);
-//                    }
-//                    i += 2;
-////                    Funx2 = (float) (Funx1 + 0.6);
-////                    a = Math.toRadians(Funx2);
-////                    Funy2 = 200 * (float) Math.sin(a);
-////                    canvas.drawLine(Funx1 - 500, Funy1 + 500, Funx2 - 500, Funy2 + 500, mForeground);
-////                    canvas.drawPoint(Funx1 - 500, Funy1 + 500, mForeground);
-////                    canvas.drawPoint(Funx2 - 500, Funy2 + 500, mForeground);
-////                    Funx1 += 1.2;
-//                } else {
                 mPts[i] = 1000;
                 mPts[i + 1] = 1000;
                 if (flag) {
@@ -267,27 +190,7 @@ public class MainActivity extends Activity {
                     if (i + 1 + 1 >= 0) System.arraycopy(mPts, 2, mPts, 0, i + 1 + 1);
                     i -= 2;
                 }
-//                if (length >= 1200){
-//                    int k;
-//                    for (k = 0; k < length; k++){
-//                        mPts[k] = mPts[k+600];
-//                    }
-//                    length = 600;
-//                    i = k;
-//                }
 
-                // Add in the new line
-//                if (mNum0ld > 1) {
-//                    System.arraycopy(m0ld, 0, m0ld, 4, (mNum0ld - 1) * 4);
-//                    System.arraycopy(m01dColor, 0, m01dColor, 1, mNum0ld - 1);
-//                }
-//                if (mNum0ld < NUM_OLD) mNum0ld++;
-//                m0ld[0] = mPoint1.x;
-//                m0ld[1] = mPoint1.y;
-//                m0ld[2] = mPoint2.x;
-//                m0ld[3] = mPoint2.y;
-//                m01dColor[0] = color;
-                // All done
                 mSurface.unlockCanvasAndPost(canvas);
             }
         }
